@@ -13,6 +13,7 @@ UDP_PORT = 44444  # Порт, который будет слушать серв�
 async def read_root():
     return {"message": "Hello World"}
 
+
 @app.on_event("startup")
 async def startup_event():
     global udp_socket
