@@ -1,13 +1,21 @@
 import uvicorn
 from fastapi import FastAPI
 from loguru import logger
+from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.sessions import SessionMiddleware
 
 from starlette.requests import Request
 from starlette.responses import Response
 
 
-
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.middleware("http")
@@ -32,13 +40,13 @@ async def log_requests(request: Request, call_next):
 
     return response
 
-@app.post('/sms_receive')
+@app.post('/smsreceive')
 async def sms_receive(request: Request):
     logger.info(f'New SMS: {await request.json()}')
     return Response(status_code=200)
 
 
-@app.get('/sms_receive')
+@app.get('/smsreceive')
 async def sms_receive(request: Request):
     logger.info(f'New SMS: {request.query_params}')
     return Response(status_code=200)
