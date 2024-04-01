@@ -42,7 +42,10 @@ app = FastAPI()
 
 @app.post('/smsreceive')
 async def sms_receive(request: Request):
-    logger.info(f'New SMS: {await request.json()}')
+    try:
+        logger.info(f'New SMS: {await request.json()}')
+    except:
+        ...
     return Response(status_code=200, content='OK')
 
 
