@@ -16,5 +16,10 @@ async def sms_receive(request: Request):
     return Response(status_code=200)
 
 
+@app.get('/sms_receive')
+async def sms_receive(request: Request):
+    logger.info(f'New SMS: {request.query_params}')
+    return Response(status_code=200)
+
 # if __name__ == "__main__":
 #     uvicorn.run(app, host="127.0.0.1", port=8000)
